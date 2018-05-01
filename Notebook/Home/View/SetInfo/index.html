@@ -1,0 +1,161 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Notebook</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+<link rel="alternate" type="application/vnd.wap.xhtml+xml" media="handheld" href="target"/>
+<link rel="stylesheet" href="__HOMECSS__/Notepad/index.css">
+<link rel="stylesheet" href="__HOMECSS__/SetInfo/main.css">
+<link rel="stylesheet" href="__HOMECSS__/SetInfo/thickbox.css">
+<link rel="icon" type="image/x-icon" href="__PUBLIC__/home_uploads/bitbug_favicon_6464.ico"/>
+<script src="__HOMEJS__/jquery-1.10.1.min.js"></script>
+<script src="__HOMEJS__/Notepad/index.js"></script>
+<script src="__PUBLIC__/My97DatePicker/WdatePicker.js"></script>
+</head>
+
+<body class="body_bg">
+	<include file="Public:header"/>
+	<!-----Very Nice---->
+	<div id="main" class="member">
+		
+    <div id="left">
+        <div class="member_left">
+            <img src="__PUBLIC__<{$logo}>" align="absmiddle" class="member_logo_b" style="width:150px;height:150px;">
+            <dl style=" width:156px;text-align:left;margin:10px 0 20px 0; line-height:20px;" class="std">
+            <dt>账号：</dt>
+            <dd class="b"><{$username}></dd>
+            </dl>
+        </div> 
+    </div>
+	
+	<div id="right">
+
+        <h1>设置</h1>
+        <ul class="member_menu">
+            <li class="current"><a href="__CONTROLLER__/index">个人资料</a></li>
+            <li><a href="__CONTROLLER__/logo">修改头像</a></li>        
+            <li><a href="__CONTROLLER__/password">修改密码</a></li>
+        </ul>
+        
+		<form method="post" name="frmMain" id="frmMain" action="__CONTROLLER__/save_info" onsubmit="return checkinfo()">
+        <ul class="preferences">
+            
+        	<li>
+            	<div class="caption">姓名：</div>
+                <div class="content">
+                	<div class="input"><input type="text" name="username" id="username" value="<{$username}>" size="10" maxlength="20"><span style="font-size:12px;color:red;">5-20个字符，可以使用字母、数字</span></div>
+                </div>
+            </li>
+            
+            
+        	<li>
+            	<div class="caption">性别：</div>
+                <div class="content">
+                	<div class="input"><label for="gender_male" style="height:22px;">
+					<input type="radio" name="sex" value="1" class="chk" id="sex" <if condition="$sex eq 1"> checked="checked" </if> />
+					男 </label>
+					<label for="gender_female" style="height:22px;"><input type="radio" name="sex" value="2" class="chk" id="sex"  <if condition="$sex eq 2"> checked="checked" </if> />
+					女</label></div>
+                </div>
+            </li>
+            
+            
+        	<li>
+            	<div class="caption">生日：</div>
+                <div class="content">
+                	<div class="input">
+                    <input type="text" name="birthday" id="birthday" value="<{$birthday}>" onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})">
+                    <div class="tips"> “生日”和“Email”将是您找回账号的重要凭证</div>
+                    
+                </div>
+            </li>
+
+            <li>
+                <div class="caption">电子邮箱：</div>
+                <div class="content">
+                    <div class="input"><input type="text" name="email" id="email" value="<{$email}>" size="50" maxlength="50"></div>
+                    <div class="tips">您常用的电子邮箱</div>
+                </div>
+            </li>
+
+		</ul>        
+        
+
+        <div id="action" class="preferences">
+            <input id="btnSave" type="submit" value="提交" class="btn btn_def" onmouseout="this.className=&#39;btn btn_def&#39;" onmouseover="this.className=&#39;btn btn_def_hv&#39;">
+            <input id="btnBack" type="button" value="返回" class="btn btn_gray" onmouseout="this.className=&#39;btn btn_gray&#39;" onmouseover="this.className=&#39;btn btn_gray_hv&#39;" onclick="history.back();">
+        </div>
+			  
+		</form>
+	</div>
+	
+	<div class="clear"></div>
+
+	</div>
+
+
+	<!--隐藏-->
+	<div id="act_template" style="display:none;">
+	        <a href="__MODULE__/Notepad/edit/id/[ID]/" title="编辑">编辑</a>&nbsp;
+	        <a href="javascript:void(0);" onclick="del([ID]);">删除</a>&nbsp;
+	</div>
+
+	<include file="Public:footer"/>
+</body>
+<script>
+function ismobile_email(val)    //判断电话，邮箱格式是否正确
+{
+    var flag=true;
+    var patternphone=/^1[358][0123456789]\d{8}$/;
+    var patternemail=/^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+
+    if(patternemail.test(val)){
+        flag=true;
+    }
+    else if(patternphone.test(val)){
+        flag=true;
+    }
+    else
+    {
+        flag=false;
+    }
+    return flag;    
+}
+function checkinfo(){
+    var username=document.getElementById("username").value;
+    var email=document.getElementById("email").value;
+    var sex=document.getElementById("sex").value;
+    var birthday=document.getElementById("birthday").value;
+
+    if(username == ''){
+        alert('请填写姓名');
+        return false;
+    }
+    if(sex == ''){
+        alert('请选择性别');
+        return false;
+    }
+    if(birthday == ''){
+        alert('请填写生日');
+        return false;
+    }
+    if(email == ''){
+        alert('请填写邮箱');
+        return false;
+    }
+    if(ismobile_email(email)==false){
+        alert('请输入正确的邮箱');
+        return false;
+    }
+    if(username.length<5 || username.length>20){
+        alert('请输入正确长度的姓名');
+        return false;
+    }
+
+}
+</script>
+</html>
+
+

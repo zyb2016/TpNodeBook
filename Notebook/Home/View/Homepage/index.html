@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Notebook</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+<link rel="alternate" type="application/vnd.wap.xhtml+xml" media="handheld" href="target"/>
+<link rel="stylesheet" href="__HOMECSS__/Homepage/index.css">
+<link rel="icon" type="image/x-icon" href="__PUBLIC__/home_uploads/bitbug_favicon_6464.ico"/>
+<script src="__HOMEJS__/jquery-1.10.1.min.js"></script>
+<script src="__HOMEJS__/index/index.js"></script>
+</head>
+
+<body class="body_bg">
+	<include file="Public:header"/>
+	<!-----Very Nice---->
+	<div id="main" >
+		<div class="left_content"><!----右边内容块---->
+			<div id="main_title">
+				<div class="name">首页</div>
+			</div>
+
+			<div id="quick" >
+				<foreach name="info" item="vo">
+					<div class="conent_left">
+						<div class="conent_left_level1">
+								<a href="__MODULE__/Homepage/view/id/<{$vo.id}>"><{$vo.num}>)&nbsp;&nbsp;<{$vo.title}></a>
+						</div>
+						<div class="conent_left_level2">
+							[作] <{$vo.username}> 　  -- 　 　<{$vo.updatetime}>
+						</div>
+						<div class="conent_left_level3">
+						</div>
+					</div>
+				</foreach>
+				
+			</div>
+			
+
+			<{$pageinfo}>
+		</div>
+
+
+		<div class="right_content" ><!--右边新闻块-->
+		<h2  >互联网新闻</h2><br/>
+		<include file="Public:news"/>
+		</div>
+	</div>
+	<include file="Public:footer"/>
+</body>
+
+<script>
+
+
+</script>
+
+</html>
+
+

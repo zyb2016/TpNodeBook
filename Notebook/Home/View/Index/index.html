@@ -1,0 +1,175 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Notebook</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+<link rel="alternate" type="application/vnd.wap.xhtml+xml" media="handheld" href="target"/>
+<link rel="icon" type="image/x-icon" href="__PUBLIC__/home_uploads/bitbug_favicon_6464.ico"/>
+<link rel="stylesheet" href="__HOMECSS__/index/index.css">
+<script src="__HOMEJS__/jquery-1.10.1.min.js"></script>
+<script src="__HOMEJS__/index/index.js"></script>
+</head>
+
+<body class="body_bg">
+	<include file="Public:header"/>
+	<!-----Very Nice---->
+	<div id="main">
+		<div class="left_content"><!----右边内容块---->
+			<div id="main_title">
+				<div class="name">我的随笔</div>
+			</div>
+			<!--
+			<div id="main_search">
+				<form action="http://www.xnote.cn/post/search/" method="post" name="frmSearch" id="frmSearch" onsubmit="return chkSearch(this);">
+					<input id="query" name="query" type="text" value="" class="search_input">
+					<input id="submit" type="submit" value="搜索" class="search_button">
+				</form>			
+			</div>
+			-->
+			<div id="quick" class="show" style="display:block;">
+				<form method="post" name="frmPost" id="frmPost">
+					<p style=" margin-bottom:5px;">快速记录简短的文字</p>
+					<p>
+						<textarea name="content" id="content" onkeyup="fixContentLen(&#39;content&#39;,1000);"></textarea><br>
+					</p>
+					<div id="content_tips" style="margin:3px;">你还可以输入<b>1000</b>字!</div>
+					<div id="quick_buttons" style="margin-top:8px;">
+						<input type="button" value="保存" onclick="save_message();" class="btn btn_def" onmouseout="this.className=&#39;btn btn_def&#39;" onmouseover="this.className=&#39;btn btn_def_hv&#39;">
+					</div>
+					<div id="quick_saveing" style="margin-top:8px; color:#999;" class="hide">
+						<img src="__HOMEIMAGE__/saveing.16.gif" align="absmiddle">&nbsp;保存中...
+					</div>
+				</form>
+			</div>
+			
+			<ul id="post_list" class="list">
+				<foreach name="info" item="vo">
+				<li id="item_<{$vo.id}>" key="<{$vo.id}>">
+					<div class="index"><{$vo.num}></div>
+					<div class="content" id="show_<{$vo.id}>">
+						<pre id="content_<{$vo.id}>"><{$vo.data}></pre>
+						<span class="time"><{$vo.addtime_show}></span>
+					</div>
+					<div class="edit" id="edit_<{$vo.id}>"></div>
+					<div class="action" id="act_<{$vo.id}>"></div>
+				</li>
+				</foreach>
+			</ul>
+			<{$pageinfo}>
+		</div>
+		<div id="act_template"><!--仅仅作为隐藏的模板-->
+	    	<a href="javascript:void(0);" onclick="edit([ID]);" title="编辑随笔">编辑</a>&nbsp;
+	        <a href="javascript:void(0);" onclick="del([ID]);" title="删除随笔">删除</a>
+		</div>
+		<div id="act_edit"><!--仅仅作为隐藏的模板-->
+			<form method="post" name="frmEdit" id="frmEdit_[ID]">
+		    	<textarea name="content" id="edit_content_[ID]"></textarea>
+		    	<input name="id" type="hidden" value="" id="edit_id_[ID]">
+		    </form>
+		    <div class="edit_btn">
+		    <input type="button" value="保存" class="btn btn_def" onmouseout="this.className=&#39;btn btn_def&#39;" onmouseover="this.className=&#39;btn btn_def_hv&#39;" onclick="act_update([ID]);">
+		    <input type="button" value="取消" class="btn btn_gray" onmouseout="this.className=&#39;btn btn_gray&#39;" onmouseover="this.className=&#39;btn btn_gray_hv&#39;" onclick="act_cancel([ID]);">
+		    </div>
+		</div>
+
+		<div class="right_content" ><!--右边新闻块-->
+		<h2  >互联网新闻</h2><br/>
+		<include file="Public:news"/>
+		</div>
+	</div>
+	<include file="Public:footer"/>
+</body>
+
+<script>
+function fixContentLen(id,intMax){
+	var txt = document.getElementById(id);
+	var tips = document.getElementById(id + '_tips');
+	
+	var str  = txt.value;
+	var len = intMax - str.length;
+	if(len <= 0){
+		txt.value = str.substring(0,intMax);
+		tips.innerHTML = '<span class=o>你还可以输入<b>0</b>个字!</span>';		
+		return false;
+	}else{
+		tips.innerHTML = '你还可以输入<b>' + len + '</b>个字!';		
+	}
+	return true;
+}
+function save_message(){
+	var uid=<{$uid}>;
+	var content = $('#content').val();
+	if(content == ''){
+		alert('请输入随笔内容!');
+		$('#content').focus();
+		return false;
+	}
+	$('#quick_buttons').hide();
+	$('#quick_saveing').show();
+
+	$.ajax({
+		url:"<{:U('Index/save_message')}>",
+		type:'post',
+		data:{uid:uid,content:content},
+		async:false,
+		dataType: "json",
+		success:function(msg){
+			if(msg.error == 0){
+				window.location.reload();
+			}else{
+				alert(msg.error);
+				$('#quick_saveing').hide();
+				$('#quick_buttons').show();
+				return false;
+			}
+		},
+		error:function(){
+		}
+	});
+}
+function act_update(id){
+	var content = $('#edit_content_' + id).val();
+	if(content == ''){
+		alert('请输入随笔内容!');
+		$('#edit_content_' + id).focus();
+		return false;
+	}
+	$('#edit_id_' + id).val(id);
+	url="<{:U('index/act_update')}>";
+	$.post(url,$("#frmEdit_" + id).serialize(),
+		function(data){
+			if(data ==1){
+				alert('修改成功!');
+				window.location.reload();
+			}else{
+				alert('修改失败，请稍后重试!');
+				window.location.reload();
+			}
+	},
+	"text");
+}
+function del(id){
+	var uid=<{$uid}>;
+	if(confirm('确定要删除吗?')){
+		url="<{:U('index/act_del')}>";
+		$.post(url,{id:id},
+			function(data){
+				if(data ==1){
+					alert('删除成功!');
+					window.location.reload();
+				}else{
+					alert('删除失败，请稍后重试!');
+					window.location.reload();
+				}
+		},
+		"text");
+	}
+}
+
+</script>
+
+</html>
+
+

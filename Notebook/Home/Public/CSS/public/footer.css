@@ -1,0 +1,5 @@
+/****脚部****/
+#footer{  clear: both;width: 980px;margin: auto;background: #f5f5f5;height: 80px;border-top: #b8b8b8 solid 1px;}
+#footer .footer-links{  margin: auto;line-height:2em;text-align: center;margin-top: 10px;}
+#footer .footer-links a{  display: inline-block;color: #686868;margin-right: 10px;font-size:10px;}
+#footer .copyright{margin: auto;text-align: center;font-size: 10px;color: #686868;line-height: 1.5em;}

@@ -1,0 +1,91 @@
+body, div, span, h1,  img, p, b, ul, pre, textarea, input, form, a, table, tr, td {
+    font-family: verdana,Arial,Helvetica,sans-serif;
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+}
+.body_bg{
+	background-color: #ffffff;
+	background-image: url(../../IMAGES/bg.gif);
+	background-repeat: repeat;
+	background-position: top left;
+	background-attachment: fixed;
+}
+ul li {list-style-type: none;}
+/****内容部分****/
+#main{margin:auto;width:980px;background:#fff; overflow:hidden;}
+/**左边内容部分**/
+#main .left_content{float:left;width:680px;padding:10px;}
+#main_title {width:100%;border-bottom:#99cc00 2px solid ; height:22px;}
+#main_title .name {float:left;color:#568900;font-family:"微软雅黑"; font-size:15px;font-weight:bold;text-decoration: none;
+background: url(../../IMAGES/bg_page_title.gif) left center no-repeat;padding-left:15px;}
+#main_search {border-bottom:#B9D3A6 1px solid;padding:5px;/* display:none;  By T~ 2014.03.25*/ height:24px; background:#F2F8F2;}
+.search_button {background:#82BB6D; color:#FFFFFF; border:none; width:50px;}
+
+.show {display:block;}
+.hide {display:none;}
+.content {word-break:break-all;word-wrap:break-word;}
+.search_input {background:#ffffff; color:#ff8800; height:16px; border:#B9D3A6 1px solid;}
+#quick {border-bottom:#B9D3A6 1px solid;padding:10px;display:none;background:#F2F8F2;}
+#quick textarea { width:600px; height:120px; padding:5px;background:#ffffff;}
+#quick input.text {margin:3px 0; background:#ffffff;}
+.btn {border:0;background:#f5f5f5 url(../../IMAGES/btn_b.png) left top no-repeat;line-height:26px; width:82px; height:26px; text-align:center; cursor:pointer; color:#fff;padding:0;}
+.btn_def { background-position:0 0px}
+.btn_def_hv { background-position:0 -26px}
+.btn_gray { background-position:0 -52px; color:#515151}
+.btn_gray_hv { background-position:0 -78px; color:#515151}
+.list{min-height: 360px;height: auto !important;}
+
+
+/**记事本部分的样式**/
+#main .right_content{float:left;width:250px;padding:10px;font-family: 宋体,serif;}
+#note_list {
+    margin-top: 5px;
+}
+#note_list li {
+    line-height: 36px;
+    height: 36px;
+    border-bottom: 1px dashed #ABABAB;
+    clear: both;
+    position: relative;
+    background: #ffffff;
+}
+
+.list .index {
+    float: left;
+    width: 50px;
+    text-align: center;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    color: #85B000;
+    font-weight: bold;
+}
+#note_list .title {
+    float: left;
+    width: 420px;
+}
+#note_list .title a {
+    font-weight: bold;
+    color: #568900;
+    text-decoration: none;
+}
+#note_list .action {
+    top: 0;
+    right: 150px;
+}
+
+.list .action {
+    float: right;
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    text-align: right;
+}
+
+.list .time {
+    float: right;
+    color: #ABABAB;
+    margin-right: 6px;
+}
+.clear {
+    clear: both;
+}

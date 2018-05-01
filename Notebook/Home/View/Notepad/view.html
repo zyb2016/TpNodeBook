@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Notebook</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+<link rel="alternate" type="application/vnd.wap.xhtml+xml" media="handheld" href="target"/>
+<link rel="stylesheet" href="__HOMECSS__/Notepad/view.css">
+<script src="__HOMEJS__/jquery-1.10.1.min.js"></script>
+<script src="__HOMEJS__/Notepad/index.js"></script>
+
+</head>
+
+<body class="body_bg">
+	<include file="Public:header"/>
+	<!-----Very Nice---->
+	<div id="main">
+		<div class="left_content"><!----右边内容块---->
+			<div id="main_title">
+				<div class="name">我的笔记本</div>
+			</div>
+			<div>
+				<div style="float:left;margin-top:10px;">标题：</div>
+				<div style="float: right;font-weight: normal;margin-top: 10px;">
+					 <a href="__MODULE__/Notepad/edit/id/<{$id}>/" ><span style="color:#001ac4;font-size: 13px;font-weight: blod;">+编辑</span></a>
+				</div>
+				<div style="float:left;margin-top:8px;">
+					<input style="width:320px" name="title" type="text" id="title" size="30"  readonly="readonly" value="<{$title}>">
+				</div>
+			</div>
+			<div id="note_content"><{$content}></div>
+
+		</div>
+
+		<div class="right_content" ><!--右边新闻块-->
+			<h2  >互联网新闻</h2><br/>
+			<include file="Public:news"/>
+		</div>
+	</div>
+
+</div>
+
+	<include file="Public:footer"/>
+</body>
+
+<script type="text/javascript">
+
+function getContent() {
+	var id='<{$id}>';
+	var title=$('#title').val();
+	var content=UE.getEditor('editor').getContent();
+	if(title == ''){
+		alert('标题不能为空！');
+		return false;
+	}
+	if(title.length>15){
+		alert('标题长度不能大于15个字！');
+		return false;
+	}
+	if(content.length>5000){
+		alert('内容长度不能大于5000！');
+		return false;
+	}
+
+	$.ajax({
+		url:"<{:U('Notepad/update_info')}>",
+		type:'post',
+		data:{id:id,title:title,content:content},
+		async:false,
+		success:function(msg){
+			if(msg == 1){
+				window.location="<{:U('Notepad/index')}>";
+			}else if(msg==2){
+				alert('标题长度不能大于15个字！');
+				return false;
+			}else if(msg==3){
+				alert('内容长度不能大于5000！');
+				return false;
+			}else if(msg==4){
+				alert('保持失败，请重试');
+				return false;
+			}
+		},
+		error:function(){
+		}
+	});
+
+}
+</script>
+
+</html>
+
+

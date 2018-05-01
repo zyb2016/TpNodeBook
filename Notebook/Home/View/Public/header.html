@@ -1,0 +1,46 @@
+<div id="header">
+<link rel="icon" type="image/x-icon" href="__PUBLIC__/home_uploads/bitbug_favicon_6464.ico"/>
+	<div id="header_top">
+		<div id="header_logo">
+		<a href="#" style="display:bolck"><img src="__PUBLIC__<{$logo}>" align="absmiddle" class="user_logo" width="56" height="56" ></a>
+		</div>
+			
+		<div id="header_title">
+			<h1 class="header">My网络记事本</h1>
+			<div class="description">
+				勤能补拙，慎独
+			</div>
+		</div>
+		<div id="header_slogan" style="text-align:right;">
+			安全记事本<br>
+		</div>	
+		<div class="clear"></div>
+	</div>
+	
+	<div id="header_menu"><!--列表-->
+		<div class="left">
+			<ul class="menu_list">
+				<li id="homepage" class="current"><a href="__MODULE__/Homepage/index" target="_parent">首页</a></li>
+				<li id="shuibi" ><a href="__MODULE__/Index/index" target="_parent">随笔</a><em>&nbsp;</em></li>
+				<li id="jishiben" ><a href="__MODULE__/Notepad/index" target="_parent">记事本</a></li>
+				<li id="helpus" ><a href="__MODULE__/MessageBoard/index" target="_parent">帮助我们提高</a></li>
+			</ul>       
+		</div>
+		
+		<div class="right">
+			<ul class="menu" style="line-height:16px; margin-top:3px;">
+				<li class="first"><{$username}> 你好!</li>
+				<li><a href="__MODULE__/SetInfo/index" target="_parent">设置</a></li>               
+				<li><a href="<{:U('Login/signout')}>" target="_parent">退出</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+<link rel="stylesheet" href="__HOMECSS__/public/header.css">
+<script type="text/javascript">
+	var type='<{$type}>';
+	$(function(){
+		$('.menu_list li').removeClass('current');
+		$('#'+type).addClass('current');
+	});
+</script>
