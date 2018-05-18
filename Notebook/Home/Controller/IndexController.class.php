@@ -27,7 +27,7 @@ class IndexController extends CommonController{
 
 		for($i=0;$i<count($info);$i++){
 			$info[$i]['num']=($i+1)+($p-1)*10;
-			$info[$i]['addtime_show']=date('Y-m-d H:m:s',$info[$i]['addtime']);
+			$info[$i]['addtime_show']=date('Y-m-d H:i:s',$info[$i]['addtime']);
 			$info[$i]['data']=base64_decode($info[$i]['data']);
 		}
 		$this->assign("info",$info);

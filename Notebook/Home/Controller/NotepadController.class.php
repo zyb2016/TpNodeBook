@@ -30,7 +30,7 @@ class NotepadController extends CommonController{
 
 		for($i=0;$i<count($info);$i++){
 			$info[$i]['num']=($i+1)+($p-1)*10;
-			$info[$i]['createtime_show']=date('Y-m-d H:m:s',$info[$i]['createtime']);
+			$info[$i]['createtime_show']=date('Y-m-d H:i:s',$info[$i]['createtime']);
 			//$info[$i]['title']=base64_decode($info[$i]['title']);
 			$info[$i]['title']=($info[$i]['title']);
 		}
@@ -90,7 +90,7 @@ class NotepadController extends CommonController{
 		$n=count($info);
 		for($i=0;$i<$n;$i++){
 			$info[$i]['num']=($i+1)+($p-1)*10;
-			$info[$i]['createtime_show']=date('Y-m-d H:m:s',$info[$i]['createtime']);
+			$info[$i]['createtime_show']=date('Y-m-d H:i:s',$info[$i]['createtime']);
 			$info[$i]['title']=($info[$i]['title']);
 		}
         $mod_users=M('users');
@@ -139,12 +139,14 @@ class NotepadController extends CommonController{
         $info=$mod->where($where)->find();
         $info['title']=($info['title']);
         $info['data']=($info['data']);
+        $mod->where("id={$id}")->setInc('view_num',1);
         
         $mod_users=M('users');
         $where_users=array();
         $where_users['uid']=$uid;
         $res_users=$mod_users->where($where_users)->find();
         $logo=$res_users['logo'];
+
 
         $this->assign('logo',$logo);
         $this->assign('id',$id);

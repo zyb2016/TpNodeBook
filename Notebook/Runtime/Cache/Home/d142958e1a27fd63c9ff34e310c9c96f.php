@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
 <link rel="alternate" type="application/vnd.wap.xhtml+xml" media="handheld" href="target"/>
-<link rel="stylesheet" href="/Notebook/Home/Public/CSS/Homepage/index.css">
+<link rel="stylesheet" href="/Notebook/Home/Public/CSS/Visitor/index.css">
 <link rel="icon" type="image/x-icon" href="/Public/home_uploads/bitbug_favicon_6464.ico"/>
 <script src="/Notebook/Home/Public/JS/jquery-1.10.1.min.js"></script>
 <script src="/Notebook/Home/Public/JS/index/index.js"></script>
@@ -70,12 +70,10 @@
 			<div id="quick" >
 				<?php if(is_array($info)): foreach($info as $key=>$vo): ?><div class="conent_left">
 						<div class="conent_left_level1">
-								<a href="/index.php?s=/Home/Homepage/view/id/<?php echo ($vo["id"]); ?>"><?php echo ($vo["num"]); ?>)&nbsp;&nbsp;<?php echo ($vo["title"]); ?></a>
+								<?php echo ($vo["num"]); ?>)&nbsp;&nbsp;<?php echo ($vo["datetime"]); ?>&nbsp;&nbsp;<span style="color:#F55"><?php echo ($vo["ip"]); ?></span>&nbsp;&nbsp;<?php echo ($vo["address"]); ?>
 						</div>
 						<div class="conent_left_level2">
-							[作] <?php echo ($vo["username"]); ?> 　  -- 　 　<?php echo ($vo["updatetime"]); ?>
-						</div>
-						<div class="conent_left_level3">
+							&nbsp;<?php echo ($vo["ua"]); ?>
 						</div>
 					</div><?php endforeach; endif; ?>
 				

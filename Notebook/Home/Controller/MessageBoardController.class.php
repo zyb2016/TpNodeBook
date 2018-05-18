@@ -20,7 +20,7 @@ class MessageBoardController extends CommonController{
 
 		for($i=0;$i<count($info);$i++){
 			$info[$i]['num']=($i+1)+($p-1)*10;
-			$info[$i]['createtime_show']=date('Y-m-d H:m:s',$info[$i]['createtime']);
+			$info[$i]['createtime_show']=date('Y-m-d H:i:s',$info[$i]['createtime']);
 			$info[$i]['data']=base64_decode($info[$i]['data']);
 			$info[$i]['nickname']=base64_decode($info[$i]['nickname']);
 		}

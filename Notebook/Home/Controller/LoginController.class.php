@@ -31,7 +31,7 @@ class LoginController extends Controller{
 				'uid' => $res['uid'],
 				'username' => $res['username'],
 				'time' => time(),
-				'datetime' => date('Y-m-d H:m:s',time())
+				'datetime' => date('Y-m-d H:i:s',time())
 			);
 			$res=$mod->data($data)->add();
 

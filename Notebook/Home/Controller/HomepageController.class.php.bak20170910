@@ -18,7 +18,7 @@ class HomepageController extends Controller{
 			$cookie_data=array(
 				'ip' => $ip,
 				'time' => time(),
-				'datetime' => date('Y-m-d H:m:s',time())
+				'datetime' => date('Y-m-d H:i:s',time())
 			);
 			$res=$mod->data($cookie_data)->add();
 			
@@ -54,7 +54,7 @@ class HomepageController extends Controller{
 		$n=count($info);
 		for($i=0;$i<$n;$i++){
 			$info[$i]['num']=($i+1)+($p-1)*10;
-			$info[$i]['updatetime']=date('Y-m-d H:m:s',$info[$i]['updatetime']);
+			$info[$i]['updatetime']=date('Y-m-d H:i:s',$info[$i]['updatetime']);
 			$info[$i]['title']=$info[$i]['title'];
 		}
 		$logo='/home_uploads/meng.jpg';

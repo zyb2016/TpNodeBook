@@ -2,12 +2,31 @@
 namespace Home\Controller;
 use Think\Controller;
 class HomepageController extends Controller{
+	public function getCity($ip=''){
+		if($ip == ''){
+	        $url = "http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json";
+	        $data=json_decode(file_get_contents($url),true);
+			$address=$data['country'].$data['province'].$data['city'].$data['isp'];
+	    }else{
+	        $url="http://ip.taobao.com/service/getIpInfo.php?ip=".$ip;
+	        $ip=json_decode(file_get_contents($url));   
+	        if((string)$ip->code=='1'){
+	           return false;
+	        }
+	        $data = (array)$ip->data;
+	        $address=$data['country'].$data['region'].$data['city'].$data['isp'];
+	    }    
+	    return $address;
+	}
+
     public function index(){
 		/*	D方法定义多表联查
 		$mod = D('Notepad');
         $info=$mod->relation(true)->find(7);
 		var_dump($info);
 		*/
+		$_SERVER["REMOTE_ADDR"] = ($_SERVER["REMOTE_ADDR"]=="::1")?'':$_SERVER["REMOTE_ADDR"];
+		$address=$this->getCity($_SERVER["REMOTE_ADDR"]);
 		//来访者60分钟内登录记录
 		if(empty($_COOKIE['notebook_visitor'])){	//记录IP，并留下20分钟的cookid
 			$ip=$_SERVER["REMOTE_ADDR"];
@@ -15,7 +34,9 @@ class HomepageController extends Controller{
 			$cookie_data=array(
 				'ip' => $ip,
 				'time' => time(),
-				'datetime' => date('Y-m-d H:m:s',time())
+				'datetime' => date('Y-m-d H:i:s',time()),
+				'ua' => $_SERVER['HTTP_USER_AGENT'],
+				'address'=>$address
 			);
 			$res=$mod->data($cookie_data)->add();
 			setcookie("notebook_visitor",serialize($cookie_data), time()+2*60*60,'/');
@@ -43,7 +64,7 @@ class HomepageController extends Controller{
 		$n=count($info_find);
 		for($i=0;$i<$n;$i++){
 			$info[$i]['num']=($i+1)+($p-1)*10;
-			$info[$i]['updatetime']=date('Y-m-d H:m:s',$info_find[$i]['updatetime']);
+			$info[$i]['updatetime']=date('Y-m-d H:i:s',$info_find[$i]['updatetime']);
 			$info[$i]['title']=$info_find[$i]['title'];
 			$info[$i]['id']=$info_find[$i]['id'];
 			$info[$i]['username']=$info_find[$i]['username'];

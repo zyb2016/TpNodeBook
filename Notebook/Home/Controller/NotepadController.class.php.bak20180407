@@ -41,7 +41,7 @@ class NotepadController extends CommonController{
 		$n=count($info);
 		for($i=0;$i<$n;$i++){
 			$info[$i]['num']=($i+1)+($p-1)*10;
-			$info[$i]['createtime_show']=date('Y-m-d H:m:s',$info[$i]['createtime']);
+			$info[$i]['createtime_show']=date('Y-m-d H:i:s',$info[$i]['createtime']);
 			$info[$i]['title']=($info[$i]['title']);
 		}
         $mod_users=M('users');
