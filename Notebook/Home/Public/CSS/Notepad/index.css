@@ -61,7 +61,7 @@ background: url(../../IMAGES/bg_page_title.gif) left center no-repeat;padding-le
 }
 #note_list .title {
     float: left;
-    width: 420px;
+    width: 320px;
 }
 #note_list .title a {
     font-weight: bold;
@@ -70,7 +70,7 @@ background: url(../../IMAGES/bg_page_title.gif) left center no-repeat;padding-le
 }
 #note_list .action {
     top: 0;
-    right: 150px;
+    right: 240px;
 }
 
 .list .action {

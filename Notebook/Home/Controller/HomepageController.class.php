@@ -65,6 +65,7 @@ class HomepageController extends Controller{
 		for($i=0;$i<$n;$i++){
 			$info[$i]['num']=($i+1)+($p-1)*10;
 			$info[$i]['updatetime']=date('Y-m-d H:i:s',$info_find[$i]['updatetime']);
+			$info[$i]['view_num']=$info_find[$i]['view_num'];
 			$info[$i]['title']=$info_find[$i]['title'];
 			$info[$i]['id']=$info_find[$i]['id'];
 			$info[$i]['username']=$info_find[$i]['username'];
@@ -86,14 +87,18 @@ class HomepageController extends Controller{
         $where=array();
         $where['id']=$id;
         $info=$mod->where($where)->find();
+        $info['view_num']=($info['view_num']);
         $info['title']=($info['title']);
         $info['data']=($info['data']);
         $logo='/home_uploads/meng.jpg';
-
+		
+		$mod->where("id={$id}")->setInc('view_num',1);
+		
         $this->assign('logo',$logo);
         $this->assign('id',$id);
         $this->assign('title',$info['title']);
         $this->assign('content',$info['data']);
+        $this->assign('view_num',$info['view_num']);
         $this->assign('type','homepage');
         $this->display();
     }

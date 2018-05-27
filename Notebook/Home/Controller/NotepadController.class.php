@@ -33,6 +33,7 @@ class NotepadController extends CommonController{
 			$info[$i]['createtime_show']=date('Y-m-d H:i:s',$info[$i]['createtime']);
 			//$info[$i]['title']=base64_decode($info[$i]['title']);
 			$info[$i]['title']=($info[$i]['title']);
+			$info[$i]['view_num']=($info[$i]['view_num']);
 		}
         $mod_users=M('users');
         $where_users=array();
@@ -137,6 +138,7 @@ class NotepadController extends CommonController{
         $where=array();
         $where['id']=$id;
         $info=$mod->where($where)->find();
+        $info['view_num']=($info['view_num']);
         $info['title']=($info['title']);
         $info['data']=($info['data']);
         $mod->where("id={$id}")->setInc('view_num',1);
@@ -150,6 +152,7 @@ class NotepadController extends CommonController{
 
         $this->assign('logo',$logo);
         $this->assign('id',$id);
+        $this->assign('view_num',$info['view_num']);
         $this->assign('title',$info['title']);
         $this->assign('content',$info['data']);
         $this->assign('type','jishiben');
